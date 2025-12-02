@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -20,9 +20,6 @@ export default {
             transform: 'translateY(0)',
           },
         },
-      },
-      backdropBlur: {
-        xs: '2px',
       },
     },
   },
