@@ -42,8 +42,8 @@ function App() {
   }
 
   // Training Zones Calculations
-  const raceSeconds = raceHours * 3600 + raceMinutes * 60 + raceSeconds
-  const racePacePerKm = raceSeconds / raceDistance
+  const totalRaceSeconds = raceHours * 3600 + raceMinutes * 60 + raceSeconds
+  const racePacePerKm = totalRaceSeconds / raceDistance
   
   const zones = [
     { name: 'Easy', factor: 1.25, color: 'from-emerald-500 to-green-500', icon: '🏃‍♂️' },
