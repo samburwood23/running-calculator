@@ -72,93 +72,119 @@ function App() {
 
   // COMPONENT STRUCTURE - This is what gets rendered
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">🏃 Running Calculator</h1>
-          <p className="text-gray-600">Your training companion for pace, splits, and zones</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-2000"></div>
+      </div>
+
+      <div className="max-w-5xl mx-auto relative z-10">
+        {/* Modern Header with Gradient */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl mb-4 shadow-2xl shadow-purple-500/50">
+            <span className="text-4xl">🏃</span>
+          </div>
+          <h1 className="text-5xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent mb-3">
+            Running Calculator
+          </h1>
+          <p className="text-purple-200 text-lg">Your intelligent training companion</p>
         </div>
 
-        {/* Tab Navigation - This demonstrates conditional rendering */}
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="flex border-b">
+        {/* Glassmorphism Card */}
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white/20">
+          {/* Modern Tab Navigation */}
+          <div className="flex p-2 bg-black/20">
             {['pace', 'splits', 'zones'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-1 py-4 px-6 font-medium transition-colors ${
+                className={`flex-1 py-4 px-6 font-semibold rounded-2xl transition-all duration-300 ${
                   activeTab === tab
-                    ? 'bg-blue-500 text-white'
-                    : 'text-gray-600 hover:bg-gray-50'
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50 transform scale-105'
+                    : 'text-purple-200 hover:bg-white/10'
                 }`}
               >
-                {tab === 'pace' && '⚡ Pace Converter'}
-                {tab === 'splits' && '📊 Split Calculator'}
-                {tab === 'zones' && '🎯 Training Zones'}
+                {tab === 'pace' && '⚡ Pace'}
+                {tab === 'splits' && '📊 Splits'}
+                {tab === 'zones' && '🎯 Zones'}
               </button>
             ))}
           </div>
 
-          <div className="p-6">
+          <div className="p-8">
             {/* PACE CONVERTER TAB */}
             {activeTab === 'pace' && (
-              <div className="space-y-6">
+              <div className="space-y-8 animate-fadeIn">
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">Pace Converter</h2>
-                  <p className="text-gray-600 mb-6">Convert between min/km and min/mile paces</p>
+                  <h2 className="text-3xl font-bold text-white mb-2">Pace Converter</h2>
+                  <p className="text-purple-200">Convert between min/km and min/mile instantly</p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  {/* Input Section */}
-                  <div className="bg-blue-50 p-6 rounded-lg">
-                    <h3 className="font-semibold text-gray-700 mb-4">Min/Km</h3>
+                <div className="grid md:grid-cols-2 gap-8">
+                  {/* Modern Input Card */}
+                  <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm p-8 rounded-2xl border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300">
+                    <h3 className="font-bold text-white mb-6 text-xl flex items-center gap-2">
+                      <span className="text-2xl">📍</span> Min/Km
+                    </h3>
                     <div className="flex gap-4">
                       <div className="flex-1">
-                        <label className="block text-sm text-gray-600 mb-2">Minutes</label>
+                        <label className="block text-sm text-purple-200 mb-2 font-medium">Minutes</label>
                         <input
                           type="number"
                           min="0"
                           max="20"
                           value={paceMinKm}
                           onChange={(e) => setPaceMinKm(parseInt(e.target.value) || 0)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-5 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-lg font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                         />
                       </div>
                       <div className="flex-1">
-                        <label className="block text-sm text-gray-600 mb-2">Seconds</label>
+                        <label className="block text-sm text-purple-200 mb-2 font-medium">Seconds</label>
                         <input
                           type="number"
                           min="0"
                           max="59"
                           value={paceSecKm}
                           onChange={(e) => setPaceSecKm(parseInt(e.target.value) || 0)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-5 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-lg font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Output Section */}
-                  <div className="bg-green-50 p-6 rounded-lg">
-                    <h3 className="font-semibold text-gray-700 mb-4">Min/Mile</h3>
+                  {/* Modern Output Card */}
+                  <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-sm p-8 rounded-2xl border border-green-400/30 hover:border-green-400/50 transition-all duration-300">
+                    <h3 className="font-bold text-white mb-6 text-xl flex items-center gap-2">
+                      <span className="text-2xl">🎯</span> Min/Mile
+                    </h3>
                     <div className="text-center">
-                      <div className="text-5xl font-bold text-gray-800">
+                      <div className="text-7xl font-black text-white drop-shadow-2xl">
                         {paceMinMileWhole}:{paceSecMile.toString().padStart(2, '0')}
                       </div>
-                      <div className="text-gray-600 mt-2">per mile</div>
+                      <div className="text-green-200 mt-3 text-lg font-medium">per mile</div>
                     </div>
                   </div>
                 </div>
 
-                {/* Quick Reference */}
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-gray-700 mb-2">Quick Reference</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                    <div className="text-gray-600">5:00/km = 8:03/mile</div>
-                    <div className="text-gray-600">4:00/km = 6:26/mile</div>
-                    <div className="text-gray-600">3:30/km = 5:38/mile</div>
-                    <div className="text-gray-600">3:00/km = 4:50/mile</div>
+                {/* Modern Quick Reference */}
+                <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                  <h4 className="font-bold text-white mb-4 flex items-center gap-2">
+                    <span className="text-xl">⚡</span> Quick Reference
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                    {[
+                      ['5:00/km', '8:03/mile'],
+                      ['4:00/km', '6:26/mile'],
+                      ['3:30/km', '5:38/mile'],
+                      ['3:00/km', '4:50/mile']
+                    ].map(([km, mile], i) => (
+                      <div key={i} className="bg-purple-500/10 px-4 py-3 rounded-xl text-purple-200 hover:bg-purple-500/20 transition-colors">
+                        <div className="font-mono font-bold">{km}</div>
+                        <div className="text-xs opacity-75">{mile}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -166,15 +192,15 @@ function App() {
 
             {/* SPLIT CALCULATOR TAB */}
             {activeTab === 'splits' && (
-              <div className="space-y-6">
+              <div className="space-y-8 animate-fadeIn">
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">Split Calculator</h2>
-                  <p className="text-gray-600 mb-6">Calculate your kilometer splits for any race</p>
+                  <h2 className="text-3xl font-bold text-white mb-2">Split Calculator</h2>
+                  <p className="text-purple-200">Calculate your kilometer splits for any race</p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-bold text-purple-200 mb-3">
                       Distance (km)
                     </label>
                     <input
@@ -184,12 +210,12 @@ function App() {
                       step="0.1"
                       value={distance}
                       onChange={(e) => setDistance(parseFloat(e.target.value) || 1)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-5 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-lg font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-bold text-purple-200 mb-3">
                       Target Time
                     </label>
                     <div className="flex gap-2">
@@ -199,9 +225,9 @@ function App() {
                         placeholder="HH"
                         value={targetTime.hours}
                         onChange={(e) => setTargetTime({ ...targetTime, hours: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-center font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                       />
-                      <span className="self-center">:</span>
+                      <span className="self-center text-purple-300 text-xl font-bold">:</span>
                       <input
                         type="number"
                         min="0"
@@ -209,9 +235,9 @@ function App() {
                         placeholder="MM"
                         value={targetTime.minutes}
                         onChange={(e) => setTargetTime({ ...targetTime, minutes: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-center font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                       />
-                      <span className="self-center">:</span>
+                      <span className="self-center text-purple-300 text-xl font-bold">:</span>
                       <input
                         type="number"
                         min="0"
@@ -219,32 +245,40 @@ function App() {
                         placeholder="SS"
                         value={targetTime.seconds}
                         onChange={(e) => setTargetTime({ ...targetTime, seconds: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-center font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gray-50 p-4 rounded-lg mb-4">
+                <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm p-6 rounded-2xl border border-purple-400/30">
                   <div className="text-center">
-                    <div className="text-sm text-gray-600">Average Pace</div>
-                    <div className="text-3xl font-bold text-blue-600">
-                      {formatTime(pacePerKm)}/km
+                    <div className="text-sm text-purple-200 mb-1 font-medium">Average Pace</div>
+                    <div className="text-5xl font-black text-white drop-shadow-lg">
+                      {formatTime(pacePerKm)}<span className="text-2xl text-purple-300">/km</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Splits Table */}
-                <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-                  <div className="grid grid-cols-2 bg-gray-100 font-semibold text-gray-700 p-3">
-                    <div>Kilometer</div>
-                    <div className="text-right">Cumulative Time</div>
+                {/* Modern Splits Table */}
+                <div className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10">
+                  <div className="grid grid-cols-2 bg-gradient-to-r from-purple-500/30 to-pink-500/30 font-bold text-white p-4">
+                    <div className="flex items-center gap-2">
+                      <span>📍</span> Kilometer
+                    </div>
+                    <div className="text-right flex items-center justify-end gap-2">
+                      Cumulative Time <span>⏱️</span>
+                    </div>
                   </div>
-                  <div className="divide-y divide-gray-200 max-h-96 overflow-y-auto">
-                    {splits.map((split) => (
-                      <div key={split.km} className="grid grid-cols-2 p-3 hover:bg-gray-50">
-                        <div className="text-gray-700">{split.km} km</div>
-                        <div className="text-right font-medium text-gray-900">{split.time}</div>
+                  <div className="divide-y divide-white/10 max-h-96 overflow-y-auto">
+                    {splits.map((split, index) => (
+                      <div 
+                        key={split.km} 
+                        className="grid grid-cols-2 p-4 hover:bg-white/5 transition-colors duration-200"
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <div className="text-purple-200 font-medium">{split.km} km</div>
+                        <div className="text-right font-bold text-white font-mono">{split.time}</div>
                       </div>
                     ))}
                   </div>
@@ -254,31 +288,31 @@ function App() {
 
             {/* TRAINING ZONES TAB */}
             {activeTab === 'zones' && (
-              <div className="space-y-6">
+              <div className="space-y-8 animate-fadeIn">
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">Training Zones</h2>
-                  <p className="text-gray-600 mb-6">Calculate your training paces based on a recent race</p>
+                  <h2 className="text-3xl font-bold text-white mb-2">Training Zones</h2>
+                  <p className="text-purple-200">Calculate your training paces based on a recent race</p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-bold text-purple-200 mb-3">
                       Race Distance
                     </label>
                     <select
                       value={raceDistance}
                       onChange={(e) => setRaceDistance(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-5 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-lg font-bold focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 cursor-pointer"
                     >
-                      <option value="5k">5K</option>
-                      <option value="10k">10K</option>
-                      <option value="half">Half Marathon</option>
-                      <option value="marathon">Marathon</option>
+                      <option value="5k" className="bg-slate-900">5K</option>
+                      <option value="10k" className="bg-slate-900">10K</option>
+                      <option value="half" className="bg-slate-900">Half Marathon</option>
+                      <option value="marathon" className="bg-slate-900">Marathon</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-bold text-purple-200 mb-3">
                       Race Time
                     </label>
                     <div className="flex gap-2">
@@ -288,9 +322,9 @@ function App() {
                         placeholder="HH"
                         value={raceTime.hours}
                         onChange={(e) => setRaceTime({ ...raceTime, hours: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-center font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                       />
-                      <span className="self-center">:</span>
+                      <span className="self-center text-purple-300 text-xl font-bold">:</span>
                       <input
                         type="number"
                         min="0"
@@ -298,9 +332,9 @@ function App() {
                         placeholder="MM"
                         value={raceTime.minutes}
                         onChange={(e) => setRaceTime({ ...raceTime, minutes: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-center font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                       />
-                      <span className="self-center">:</span>
+                      <span className="self-center text-purple-300 text-xl font-bold">:</span>
                       <input
                         type="number"
                         min="0"
@@ -308,7 +342,7 @@ function App() {
                         placeholder="SS"
                         value={raceTime.seconds}
                         onChange={(e) => setRaceTime({ ...raceTime, seconds: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-4 bg-black/30 border border-purple-400/30 rounded-xl text-white text-center font-bold placeholder-purple-300/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                       />
                     </div>
                   </div>
@@ -316,41 +350,60 @@ function App() {
 
                 {/* Training Zones Display */}
                 <div className="space-y-4">
-                  {Object.values(zones).map((zone, index) => (
-                    <div key={index} className="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-lg border border-blue-200">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h3 className="font-semibold text-gray-800">{zone.name}</h3>
-                          <p className="text-sm text-gray-600">{zone.description}</p>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-blue-600">
-                            {formatTime(zone.pace)}/km
+                  {Object.values(zones).map((zone, index) => {
+                    const gradients = [
+                      'from-green-500/20 to-emerald-500/20 border-green-400/30',
+                      'from-yellow-500/20 to-orange-500/20 border-yellow-400/30',
+                      'from-orange-500/20 to-red-500/20 border-orange-400/30',
+                      'from-red-500/20 to-pink-500/20 border-red-400/30'
+                    ];
+                    return (
+                      <div 
+                        key={index} 
+                        className={`bg-gradient-to-br ${gradients[index]} backdrop-blur-sm p-6 rounded-2xl border hover:scale-[1.02] transition-all duration-300`}
+                        style={{ animationDelay: `${index * 100}ms` }}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <h3 className="font-bold text-white text-xl mb-1">{zone.name}</h3>
+                            <p className="text-sm text-purple-200">{zone.description}</p>
                           </div>
-                          <div className="text-sm text-gray-600">
-                            {formatTime(zone.pace * 1.60934)}/mile
+                          <div className="text-right ml-4">
+                            <div className="text-3xl font-black text-white font-mono">
+                              {formatTime(zone.pace)}<span className="text-lg text-purple-300">/km</span>
+                            </div>
+                            <div className="text-sm text-purple-200 font-mono mt-1">
+                              {formatTime(zone.pace * 1.60934)}/mile
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
-                <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                  <p className="text-sm text-gray-700">
-                    <strong>Note:</strong> These zones are estimates based on your race performance. 
-                    Adjust based on feel, conditions, and individual fitness. Always listen to your body.
-                  </p>
+                <div className="bg-yellow-500/10 backdrop-blur-sm border border-yellow-400/30 p-5 rounded-2xl">
+                  <div className="flex gap-3">
+                    <span className="text-2xl">💡</span>
+                    <p className="text-sm text-yellow-100">
+                      <strong className="text-yellow-200">Note:</strong> These zones are estimates based on your race performance. 
+                      Adjust based on feel, conditions, and individual fitness. Always listen to your body.
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="text-center mt-8 text-gray-600">
-          <p className="text-sm">Built with React + Vite + Tailwind CSS</p>
-          <p className="text-xs mt-2">Training zones based on Jack Daniels' VDOT methodology</p>
+        {/* Modern Footer */}
+        <div className="text-center mt-12 space-y-2">
+          <p className="text-purple-300 font-medium">Built with React + Vite + Tailwind CSS</p>
+          <p className="text-purple-400 text-sm">Training zones based on Jack Daniels' VDOT methodology</p>
+          <div className="flex items-center justify-center gap-2 text-purple-500 text-xs">
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span>Deployed on Vercel</span>
+          </div>
         </div>
       </div>
     </div>
